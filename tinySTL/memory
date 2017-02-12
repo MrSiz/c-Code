@@ -1,0 +1,120 @@
+#ifndef TINYSTL_MEMORY_H
+#define TINYSTL_MEMORY_H
+
+#include "iterator" //for iterator_traits
+#include <new> //for placement new
+
+namespace tinySTL
+{
+	//define uninitialized_fill
+	template< class ForwardIterator, class T >
+	void uninitialized_fill(ForwardIterator first, ForwardIterator last, const T& value)
+	{
+		typedef typename tinySTL::iterator_traits<ForwardIterator>::value_type Value;
+		ForwardIterator current = first;
+		try
+		{
+			for (; current != last; ++current)
+			{
+				::new(static_cast<void*>(&(*current)) Value(value));
+			}
+		}
+		catch (...)
+		{
+			for (; first != current; ++first)
+			{
+				first -> ~Value();
+			}
+			throw;
+		}
+	}
+
+	template< class ForwardIterator, class Size, class T >
+	ForwardIterator uninitialized_fill_n(ForwardIterator first, Size count, const T& value)
+	{
+		typedef typename iterator_traits<ForwardIterator>::value_type Value;
+		ForwardIterator current = first;
+		try
+		{
+			for (;count;--count)
+			{
+				::new(static_cast<void*>(&(*current)))(Value(value));
+				++current;
+			}
+			return current;
+		}
+		catch (...)
+		{
+			for (; first != current; ++first)
+			{
+				first -> ~Value();
+			}
+			throw;
+		}
+	}
+
+	//define uninitialized copy
+	template <class InputIterator, class ForwardIterator>
+	ForwardIterator uninitialized_copy(InputIterator first, InputIterator last, ForwardIterator d_first)
+	{
+		typedef typename tinySTL::iterator_traits<ForwardIt>::value_type Value;
+		ForwardIterator current = d_first;
+		try 
+		{
+			for (; first != last; ++first, ++current)
+			{
+				::new (static_cast<void*>(&(*current))) Value(*first);
+			}
+			return current;
+		}
+		catch (...) 
+		{
+			for (; d_first != current; ++d_first) 
+			{
+				d_first->~Value();
+			}
+			throw;
+		}
+	}
+
+	template <class InputIterator, class Size, class ForwardIterator>
+	ForwardIterator uninitialized_copy_n(InputIterator first, Size count, ForwardIterator d_first)
+	{
+		typedef typename std::iterator_traits<ForwardIt>::value_type Value;
+		ForwardIterator current = d_first;
+		try
+		{
+			for (; count > 0; ++first, ++current, --count) 
+			{
+				::new (static_cast<void*>(std::addressof(*current))) Value(*first);
+			}
+		}
+		catch (...) 
+		{
+			for (; d_first != current; ++d_first) 
+			{
+				d_first->~Value();
+			}
+			throw;
+		}
+		return current;
+	}
+
+
+	template <class T>
+	void destroy_at(T* p)
+	{
+		p->~T();
+	}
+
+	template< class ForwardIterator >
+	void destroy(ForwardIterator first, ForwardIterator last)
+	{
+		for (; first != last; ++first)
+			destroy_at(&(*first));
+	}
+
+}
+
+
+#endif // !TINYSTL_MEMORY_H

@@ -1,0 +1,119 @@
+#ifndef TINYSTL_TYPE_TRAITS_H
+#define TINYSTL_TYPE_TRAITS_H
+
+//is_integral to do
+
+namespace tinySTL
+{
+
+	//define helper classes
+	template< class T, T v >
+	struct integral_constant
+	{
+		static constexpr T value = v;
+		
+		typedef T value_type;
+		typedef integral_constant type;
+		constexpr operator value_type() const noexcept
+		{
+			return value;
+		}
+		constexpr value_type operator()() const noexcept
+		{
+			return value;
+		}
+	};
+
+	typedef integral_constant<bool, true> true_type;
+	typedef integral_constant<bool, false> false_type;
+
+	//remove_const, remove_valatile
+	template <class T>
+	struct remove_const
+	{
+		typedef T type;
+	};
+
+	template <class T>
+	struct remove_const<const T>
+	{
+		typedef T type;
+	};
+
+	template <class T>
+	struct remove_valatile
+	{
+		typedef T type;
+	};
+
+	template <class T>
+	struct remove_valatile<volatile T>
+	{
+		typedef T type;
+	};
+
+	template <class T>
+	struct remove_cv
+	{
+		typedef typename remove_valatile<typename remove_const<T>::type>::type type;
+	};
+
+	template <class T>
+	struct remove_reference
+	{
+		typedef T type;
+	};
+
+	template <class T>
+	struct remove_reference<T&>
+	{
+		typedef T type;
+	};
+
+	template <class T>
+	struct remove_reference<T&&>
+	{
+		typedef T type;
+	};
+
+	//is_same
+	template <class T, class U>
+	struct is_same : public false_type {};
+
+	template <class T>
+	struct is_same<T, T> : public true_type {};
+
+
+	//define primary type categories
+	template <class T>
+	struct is_void : public is_same<T, void>{};
+
+	template <class T>
+	struct is_const : public false_type {};
+
+	template <class T>
+	struct is_const<T const> : public true_type {};
+
+	template <class T>
+	struct is_valatile : public false_type {};
+
+	template <class T>
+	struct is_valatile<T volatile> : public true_type {};
+
+	template <class T>
+	struct is_reference : public false_type {};
+
+	template <class T>
+	struct is_reference<T&> : public true_type {};
+
+	template <class T>
+	struct is_reference<T&&> : public true_type {};
+	
+	template <class T>
+	struct is_integral
+	{
+
+	};
+}
+
+#endif // !TINYSTL_TYPE_TRAITS_H

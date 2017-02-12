@@ -1,0 +1,147 @@
+#ifndef TINYSTL_BITSET_H
+#define TINYSTL_BITSET_H
+
+// to do
+#include <cstddef> //for size_t
+#include <cstring> //for memeset
+#include <new> //for exception
+
+namespace tinySTL
+{
+	const size_t BIT_PER_WORD = sizeof(char) * sizeof(size_t);
+	inline size_t BITSET_WORDS(size_t N)
+	{
+		return N < 1 ? 1 : ((N + BIT_PER_WORD - 1) / BIT_PER_WORD);
+	}
+	
+	template <size_t N>
+	struct BaseHelp
+	{
+	public:
+		typedef size_t word_type;
+		word_type word_arr[N];
+	private:
+		void M_reset()
+		{
+			memset(word_arr, 0, sizeof(word_arr));
+		}
+	public:
+		BaseHelp()
+		{
+			M_reset();
+		}
+		BaseHelp(word_type val)
+		{
+			M_reset();
+			word_arr[0] = val;
+		}
+	};
+
+	template <size_t N>
+	struct Sanitize
+	{
+		static void M_do_sanitize(unsigned long& val)
+		{
+			val &= ~((static_cast<unsigned long)(0) << N);
+		}
+	};
+
+	template <>
+	struct Sanitize<0>
+	{
+		static void M_do_sanitize(unsigned long& val)
+		{
+
+		}
+	};
+	template <size_t N >
+	class bitset
+	{
+	public:
+		typedef size_t word_type;
+		word_type word_arr[N];
+	public:
+		//proxy class reference
+		class reference
+		{
+		private:
+			reference();
+		public:
+			~reference();
+			reference& operator=(bool x);
+			reference& operator=(const reference& x);
+			operator bool() const;
+			bool operator~() const;
+			reference flip&();
+		};
+	private:
+		void M_reset()
+		{
+			memeset(word_arr, 0, sizeof(word_arr));
+		}
+		void M_do_sanitize()
+		{
+			Sanitize<N % BIT_PER_WORD>::M_do_sanitize(this->M_hiword());
+		}
+		word_type M_hiword()
+		{
+			return word_arr[N - 1];
+		}
+		word_type M_hiword() const
+		{
+			return word_arr[N - 1];
+		}
+	public:
+		bitset()
+		{
+			M_reset();
+		}
+		bitset(unsigned long val)
+		{
+			M_reset();
+			word_arr[0] = val; 
+
+		}
+		~bitset() = default;
+		bool operator==(const bitset<N>& rhs) const
+		{
+			for (size_t i = 0; i < N; ++i)
+			{
+				if (word_arr[i] != rhs.word_arr[i])
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+		bool operator!=(const bitset<N>& rhs) const
+		{
+			for (size_t i = 0; i < N; ++i)
+			{
+				if (word_arr[i] == rhs.word_arr[i])
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+		reference operator[](size_t pos)
+		{
+			return word_arr[pos];
+		}
+		bool operator[](size_t pos) const
+		{
+			return word_arr[pos];
+		}
+		bool test(size_t pos) const
+		{
+			if (pos > N)
+			{
+				throw std::out_of_range;
+			}
+		}
+	};
+}
+
+
+#endif // !TINYSTL_BITSET_H
