@@ -14,6 +14,6 @@ tinySTL is part of the STL implementation, which contains iterator, algorithm，
 Viusual studio 2015
 
 ## Liscense
-Copyright &copy 2016, Huan Zhao.  All rights reserved.
-This project is governed by the BSD 2-clause license 
+Copyright © 2016, Huan Zhao.  All rights reserved.  
+This project is governed by the BSD 2-clause license   
 that can be found in the License file.

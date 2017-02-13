@@ -144,12 +144,15 @@
   <ItemGroup>
     <ClInclude Include="algorithm" />
     <ClInclude Include="allocator.h" />
+    <ClInclude Include="bitset" />
     <ClInclude Include="functional" />
     <ClInclude Include="initializer_list.h" />
     <ClInclude Include="iterator" />
+    <ClInclude Include="list.h" />
     <ClInclude Include="memory" />
     <ClInclude Include="pair.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="stack.h" />
     <ClInclude Include="string" />
     <ClInclude Include="type_traits" />
     <ClInclude Include="utility" />
