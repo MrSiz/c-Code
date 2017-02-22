@@ -26,30 +26,30 @@ namespace tinySTL
 	struct output_iterator
 	{
 		typedef output_iterator_tag	iterator_category;
-		typedef void					value_type;
-		typedef void			different_type;
-		typedef void			pointer;
-		typedef void			reference;
+		typedef void				value_type;
+		typedef void				different_type;
+		typedef void				pointer;
+		typedef void				reference;
 	};
 
 	template <class T, class Distance>
 	struct forward_iterator
 	{
 		typedef forward_iterator_tag	iterator_category;
-		typedef T					value_type;
-		typedef Distance			different_type;
-		typedef T*					pointer;
-		typedef T&					reference;
+		typedef T						value_type;
+		typedef Distance				different_type;
+		typedef T*						pointer;
+		typedef T&						reference;
 	};
 
 	template <class T, class Distance>
 	struct bidirectional_iterator
 	{
 		typedef bidirectional_iterator_tag	iterator_category;
-		typedef T					value_type;
-		typedef Distance			different_type;
-		typedef T*					pointer;
-		typedef T&					reference;
+		typedef T							value_type;
+		typedef Distance					different_type;
+		typedef T*							pointer;
+		typedef T&							reference;
 	};
 
 	template <class T, class Distance>
