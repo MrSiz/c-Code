@@ -51,6 +51,16 @@
     <ClInclude Include="functional">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="bitset" />
+    <ClInclude Include="list.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="basic_sort.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="tinySTL.rc">
