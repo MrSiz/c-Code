@@ -9,5 +9,13 @@ int main()
 	{
 		std::cout << val << std::endl;
 	}
+	puts("===========================");
+	//test for bubble_sort
+	int arr1[6] = {3, 2, 5, 4, 4, 1};
+	tinySTL::bubble_sort(arr1, arr1 + 6);
+	for (auto &val : arr1)
+	{
+		std::cout << val << std::endl;
+	}
 }
 
