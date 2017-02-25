@@ -17,5 +17,13 @@ int main()
 	{
 		std::cout << val << std::endl;
 	}
+	puts("===========================");
+	//test for select_sort
+	int arr2[6] = {4, 2, 1, 5, 3, 3};
+	tinySTL::select_sort(arr2, arr2 + 6);
+	for (auto &val : arr2)
+	{
+		std::cout << val << std::endl;
+	}
 }
 

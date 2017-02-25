@@ -38,6 +38,26 @@ namespace tinySTL
 			}
 		}
 	}
+	
+	//select sort
+	//complexity O(n^2)
+	template <class T, class C = tinySTL::less<T>>
+	void select_sort(T* first, T* last, C c = C())
+	{
+		size_t n = last - first;
+		for (int i = 0; i < n - 1; ++i)
+		{
+			int index = i;
+			for (int j = n - 1; j > i; --j)
+			{
+				if (c(*(first + j), *(first + index)))
+				{
+					index = j;
+				}
+			}
+			tinySTL::swap(*(first + i), *(first + index));
+		}
+	}
 }
 
 #endif // !TINYSTL_BASIC_SORT_H
