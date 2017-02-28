@@ -58,6 +58,42 @@ namespace tinySTL
 			tinySTL::swap(*(first + i), *(first + index));
 		}
 	}
+
+	//merge sort
+	//complexity O(nlgn)
+	template <class T, class C = tinySTL::less<T>>
+	void merge_sort(T* arr, T* temp, int left, int right, C c = C())
+	{
+		if (left == right)
+			return;
+		int m = (left + right) >> 1;
+		merge_sort(arr, temp, left, m);
+		merge_sort(arr, temp, m + 1, right);
+		for (int i = left; i <= right; ++i)
+		{
+			temp[i] = arr[i];
+		}
+		int index1 = left, index2 = m + 1;
+		for (int pos = left; pos <= right; ++pos)
+		{
+			if (index1 == m + 1)
+			{
+				arr[pos] = temp[index2++];
+			}
+			else if (index2 == right + 1)
+			{
+				arr[pos] = temp[index1++];
+			}
+			else if (c(*(temp + index1), *(temp + index2)))
+			{
+				arr[pos] = temp[index1++];
+			}
+			else
+			{
+				arr[pos] = temp[index2++];
+			}
+		}
+	}
 }
 
 #endif // !TINYSTL_BASIC_SORT_H
