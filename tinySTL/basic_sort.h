@@ -94,6 +94,36 @@ namespace tinySTL
 			}
 		}
 	}
+	
+	//quick_sort
+	//complexity O(nlgn)
+	
+	template <typename T, typename C = tinySTL::less<T>>
+	void quick_sort(T* arr, T left, T right)
+	{
+		if (left >= right)
+			return ;
+		//choose the last element as pivot
+		T pos = right, pivot = arr[right];
+		T l = left, r = right - 1;
+		do
+		{
+			while (arr[l] <= pivot)
+			{
+				++l;
+			}
+			while (l < r && arr[r] > pivot)
+			{
+				--r;
+			}
+			tinySTL::swap(arr[l], arr[r]);
+		}while (l < r);
+		tinySTL::swap(arr[pos], arr[l]);
+		quick_sort(arr, left, l - 1);
+		quick_sort(arr, l + 1, right);
+		return ;
+	}
 }
+
 
 #endif // !TINYSTL_BASIC_SORT_H

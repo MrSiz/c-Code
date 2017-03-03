@@ -34,5 +34,13 @@ int main()
 	{
 		std::cout << val << std::endl;
 	}
+	puts("=============================");
+	//test for quick_sort
+	int arr4[6] = {3, 2, 5, 4, 6, 1};
+	tinySTL::quick_sort(arr4, 0, 5);
+	for (auto &val : arr4)
+	{
+		std::cout << val << std::endl;
+	}
 }
 
