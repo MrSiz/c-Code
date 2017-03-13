@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="algorithm" />
     <ClInclude Include="allocator.h" />
+    <ClInclude Include="array" />
     <ClInclude Include="basic_sort.h" />
     <ClInclude Include="bitset" />
     <ClInclude Include="functional" />

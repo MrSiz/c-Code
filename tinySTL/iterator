@@ -421,18 +421,10 @@ namespace tinySTL
 		return tinySTL::insert_iterator<Container>(c, i);
 	}
 
-	template<class ForwardIt>
-	ForwardIt next(ForwardIt it,
-		typename std::iterator_traits<ForwardIt>::difference_type n = 1)
-	{
-		std::advance(it, n);
-		return it;
-	}
-
 	template <class ForwardIterator>
 	ForwardIterator next(ForwardIterator it, typename tinySTL::iterator_traits<ForwardIterator>::difference_type n = 1)
 	{
-		advance(it, n);
+		tinySTL::advance(it, n);
 		return it;
 	}
 	
