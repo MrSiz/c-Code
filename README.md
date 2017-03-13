@@ -4,7 +4,6 @@ tinySTL is part of the STL implementation, which contains iterator, algorithm，
 ## Todo
 - [ ] list
 - [ ] deque
-- [ ] bitset
 - [ ] set
 - [ ] map
 - [ ] unordered_map
