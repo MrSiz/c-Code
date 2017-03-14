@@ -2,7 +2,9 @@
 #define TINYSTL_MEMORY_H
 
 #include "iterator" //for iterator_traits
+#include "smart_pointer.h"
 #include <new> //for placement new
+
 
 namespace tinySTL
 {
