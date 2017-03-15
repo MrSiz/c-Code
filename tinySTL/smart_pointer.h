@@ -2,7 +2,7 @@
 #define TINYSTL_SMART_POINTER_H
 
 #include "type_traits" //for remove_reference
-
+#include "pair.h" //for pair<>
 
 
 namespace tinySTL
@@ -65,7 +65,35 @@ namespace tinySTL
 		};
 
 	public:
+		using pointer = help::type;
+		using element_type = T;
+		using deleter_type = Deleter;
+	private:
+		pointer ptr;
+		deleter_type deleter;
+	public:
+		//initialize ptr = nullptr if no argument
 
+		~unique_ptr()
+		{
+
+		}
+		pointer get() const
+		{
+			return ptr;
+		}
+		const Deleter& get_deleter() const noexcept
+		{
+			return deleter;
+		}
+		Deleter& get_deleter() noexcept
+		{
+			return deleter;
+		}
+		explicit operator bool() const noexcept
+		{
+			return ptr != nullptr;
+		}
 	};
 }
 
