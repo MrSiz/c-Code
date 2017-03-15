@@ -64,6 +64,9 @@
     <ClInclude Include="array">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="smart_pointer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="tinySTL.rc">

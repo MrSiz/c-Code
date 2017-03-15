@@ -154,6 +154,7 @@
     <ClInclude Include="memory" />
     <ClInclude Include="pair.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="smart_pointer.h" />
     <ClInclude Include="stack.h" />
     <ClInclude Include="string" />
     <ClInclude Include="type_traits" />
