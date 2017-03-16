@@ -69,14 +69,26 @@ namespace tinySTL
 		using element_type = T;
 		using deleter_type = Deleter;
 	private:
-		pointer ptr;
+		element_type* ptr;
 		deleter_type deleter;
 	public:
 		//initialize ptr = nullptr if no argument
+		// Disable copy from lvalue.
+		unique_ptr(const unique_ptr&) = delete;
+		unique_ptr& operator=(const unique_ptr&) = delete;
 
+		explicit unique_ptr(pointer ptr_val = nullptr) :ptr(ptr_val) {}
+		unique_ptr(unique_ptr&& rhs) :ptr(nullptr) 
+		{
+			tinySTL::swap(ptr, rhs.ptr);
+		}
 		~unique_ptr()
 		{
-
+			auto& temp = get();
+			if (temp)
+			{
+				get_deleter()(temp);
+			}
 		}
 		pointer get() const
 		{
@@ -93,6 +105,31 @@ namespace tinySTL
 		explicit operator bool() const noexcept
 		{
 			return ptr != nullptr;
+		}
+		pointer release()
+		{
+			pointer temp = nullptr;
+			tinySTL::swap(temp, ptr);
+			return temp;
+		}
+		void reset(pointer parameter_ptr = pointer())
+		{
+			auto& old_ptr = ptr;
+			ptr = parameter_ptr;
+			if (old_ptr != nullptr)
+				get_deleter()(old_ptr);
+		}
+		void reset(std::nullptr_t p = nullptr)
+		{
+			reset(pointer());
+		}
+		pointer operator->() const noexcept
+		{
+			return get();
+		}
+		element_type& operator *() 
+		{
+			return *ptr;
 		}
 	};
 }
