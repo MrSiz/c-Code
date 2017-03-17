@@ -446,7 +446,7 @@ namespace tinySTL
 		return first1;
 	}
 
-	template<class InputIterator, class T>
+	template <class InputIterator, class T>
 	T accumulate(InputIterator first, InputIterator last, T init)
 	{
 		for (; first != last; ++first)
@@ -456,7 +456,7 @@ namespace tinySTL
 		return init;
 	}
 
-	template<class InputIterator, class T, class BinaryPredicate>
+	template <class InputIterator, class T, class BinaryPredicate>
 	T accumulate(InputIterator first, InputIterator last, T init,
 		BinaryPredicate f)
 	{
@@ -467,7 +467,7 @@ namespace tinySTL
 		return init;
 	}
 
-	template<class InputIterator, class OutputIterator>
+	template <class InputIterator, class OutputIterator>
 	OutputIterator partial_sum(InputIterator first1, InputIterator last1, OutputIterator first2)
 	{
 		if (first1 == last1)
@@ -483,7 +483,7 @@ namespace tinySTL
 	}
 
 
-	template<class InputIterator, class OutputIterator, class BinaryPredicate>
+	template <class InputIterator, class OutputIterator, class BinaryPredicate>
 	OutputIterator partial_sum(InputIterator first1, InputIterator last1,
 		OutputIterator first2, BinaryPredicate f)
 	{
@@ -497,6 +497,13 @@ namespace tinySTL
 			*++first2 = sum;
 		}
 		return ++first2;
+	}
+	
+	template <class InputIt1, class InputIt2, class OutputIt, class Compare>
+	OutputIt set_union( InputIt1 first1, InputIt1 last1, InputIt2 first2, InputIt2 last2,
+        OutputIt d_first, Compare comp)
+	{
+		
 	}
 }
 
