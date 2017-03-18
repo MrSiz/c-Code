@@ -14,5 +14,5 @@ Viusual studio 2015
 
 ## License
 Copyright © 2016, Huan Zhao.  All rights reserved.  
-This project is governed by the BSD 2-clause license   
+This project is governed by the BSD 3-clause license   
 that can be found in the LICENSE file.
