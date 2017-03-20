@@ -123,6 +123,12 @@ namespace tinySTL
 		quick_sort(arr, l + 1, right);
 		return ;
 	}
+
+	template <typename T, typename C = tinySTL::less<T>>
+	void heap_sort(T* arr, size_t length)
+	{
+
+	}
 }
 
 

@@ -26,7 +26,7 @@ namespace tinySTL
 		typename iterator_traits<InputIterator>::difference_type res = 0;
 		for (; first != last; ++first)
 		{
-			if (*first = valur)
+			if (*first = value)
 			{
 				++res;
 			}
@@ -167,7 +167,7 @@ namespace tinySTL
 				if (temp2 == last2)
 					return first1; //find the answaer
 				if (temp1 == last1)
-					return last;
+					return last1;
 				if (!(*temp1 == *temp2))
 					break;
 			}
@@ -186,7 +186,7 @@ namespace tinySTL
 				if (temp2 == last2)
 					return first1; //find the answaer
 				if (temp1 == last1)
-					return last;
+					return last1;
 				if (!f(*temp1, *temp2))
 					break;
 			}
@@ -199,17 +199,17 @@ namespace tinySTL
 	{
 		if (first2 == last2)
 			return last1;
-		ForwardIterator1 res = last;
+		ForwardIterator1 res = last1;
 		while (true)
 		{
 			ForwardIterator1 temp = search(first1, last1, first2, last2);
-			if (temp == last)
-				return last;
+			if (temp == last1)
+				return last1;
 			else
 			{
 				res = temp;
-				first = res;
-				++first;
+				first1 = res;
+				++first1;
 			}
 		}
 		return res;
@@ -220,17 +220,17 @@ namespace tinySTL
 	{
 		if (first2 == last2)
 			return last1;
-		ForwardIterator1 res = last;
+		ForwardIterator1 res = last1;
 		while (true)
 		{
 			ForwardIterator1 temp = search(first1, last1, first2, last2, f);
-			if (temp == last)
-				return last;
+			if (temp == last1)
+				return last1;
 			else
 			{
 				res = temp;
-				first = res;
-				++first;
+				first1 = res;
+				++first1;
 			}
 		}
 		return res;
@@ -240,7 +240,7 @@ namespace tinySTL
 	template <class InputIterator, class ForwardIterator>
 	InputIterator find_first_of(InputIterator first1, InputIterator last1, ForwardIterator first2, ForwardIterator last2)
 	{
-		for (; first1 != last1; ++first)
+		for (; first1 != last1; ++first1)
 		{
 			for (ForwardIterator it = first2; it != last2; ++it)
 			{
@@ -254,7 +254,7 @@ namespace tinySTL
 	template <class InputIterator, class ForwardIterator, class BinaryPredicate>
 	InputIterator find_first_of(InputIterator first1, InputIterator last1, ForwardIterator first2, ForwardIterator last2, BinaryPredicate f)
 	{
-		for (; first1 != last1; ++first)
+		for (; first1 != last1; ++first1)
 		{
 			for (ForwardIterator it = first2; it != last2; ++it)
 			{
@@ -425,7 +425,7 @@ namespace tinySTL
 	void reverse(BidirectionalIterator first1, BidirectionalIterator last1)
 	{
 		while ((first1 != last1) && (first1 != --last1)) {
-			iter_swap(first++, last);
+			iter_swap(first1++, last1);
 		}
 	}
 
@@ -434,10 +434,10 @@ namespace tinySTL
 	template <class ForwardIterator, class UnaryPredicate>
 	ForwardIterator partition(ForwardIterator first1, ForwardIterator last1, UnaryPredicate f)
 	{
-		first1 = find_if_not(first, last, f);
+		first1 = find_if_not(first1, last1, f);
 		if (first1 == last1)
 			return first1;
-		for (auto it = next(first); it != last1; ++it)
+		for (auto it = next(first1); it != last1; ++it)
 		{
 			if (f(*it))
 			{
@@ -552,6 +552,29 @@ namespace tinySTL
 			}
 			return d_first;
 		}
+	}
+
+
+	template <class ForwardIterator, class T>
+	ForwardIterator lower_bound(ForwardIterator first, ForwardIterator last, const T& value)
+	{
+		T length = last - first;
+		T left = 0, right = length - 1;
+		while (left < right)
+		{
+			T middle = left + ((right - left) >> 1);
+			if (*(first + middle) < value)
+			{
+				left = middle + 1;
+			}
+			else
+			{
+				right = middle;
+			}
+		}
+		if (*(first + left) >= value)
+			return first + left;
+		return last;
 	}
 }
 
