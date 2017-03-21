@@ -4,6 +4,8 @@
 #include <cstddef> //for size_t
 #include "functional" //for less<>
 #include "utility" //for swap
+#include <iostream>
+
 namespace tinySTL
 {
 	//insert sort
@@ -124,10 +126,54 @@ namespace tinySTL
 		return ;
 	}
 
+	template <typename T, typename Comp = tinySTL::less<T>>
+	void build_heap(T* arr, size_t index, size_t end_index, Comp comp = Comp())
+	{
+		auto func = [=](const auto pos) -> bool {
+			return (pos >= end_index / 2) && pos < end_index;
+		};
+		while (!func(index))
+		{
+			//std::cout << "test" << std::endl;
+			T lchild = (index << 1) + 1;
+			T rchild = (index << 1) + 2;
+			if (rchild < end_index && comp(*(arr + rchild), *(arr + lchild)))
+				lchild = rchild;
+			if (comp(*(arr + index), *(arr + lchild)))
+				return ;
+			tinySTL::swap(*(arr + index), *(arr + lchild));
+			index = lchild;
+	
+			//std::cout << index << std::endl;
+			//char q;
+			//std::cin >> q;
+		}
+		return ;
+	}
+	
 	template <typename T, typename C = tinySTL::less<T>>
 	void heap_sort(T* arr, size_t length)
 	{
-
+		T pos = (length >> 1) - 1;
+		while (pos >= 0)
+		{
+			build_heap<T, C>(arr, pos, length);
+			--pos;
+		}
+		//for (int i = 0; i < length; ++i)
+		//{
+		//	std::cout << arr[i] << ' ';
+		//}
+		//std::cout << std::endl;
+		size_t t = 0;
+	
+		for (int i = 0; i < length; ++i){
+			//std::cout << 't' << t << ' ' << arr[t] << std::endl;
+			//	std::cout << "finale" << arr[5] << std::endl;
+			tinySTL::swap(arr[t++], arr[i]);
+			//std::cout << "length " <<  length - t << std::endl;
+			build_heap(arr + t, 0, length - t + 1);
+		}
 	}
 }
 

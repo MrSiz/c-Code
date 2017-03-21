@@ -10,7 +10,7 @@ tinySTL is part of the STL implementation, which contains iterator, algorithm，
 - [ ] unordered_set
 
 ## Development tool
-Viusual studio 2015
+Visual studio 2017
 
 ## License
 Copyright © 2016, Huan Zhao.  All rights reserved.  

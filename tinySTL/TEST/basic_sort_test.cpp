@@ -42,7 +42,12 @@ int main()
 	{
 		std::cout << val << std::endl;
 	}
-	puts("==============================");
-	
+	puts("======================last=======");
+	int arr5[6] = {3, 2, 5, 4, 6, 3};
+	tinySTL::heap_sort(arr5, 6);
+	for (auto &val : arr5)
+	{
+		std::cout << val << std::endl;
+	}
 }
 
