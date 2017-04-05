@@ -3,17 +3,7 @@
 
 namespace tinySTL
 {
-	template <class CharT>
-	class char_traits
-	{
-	public:
-		typedef CharT char_type;
-		typedef unsigned long int_type;
-		typedef void off_type;
-		typedef void pos_type;
-		typedef void state_type;
 
-	};
 }
 
 #endif
